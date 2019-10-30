@@ -1,7 +1,8 @@
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Callable
 
 import dgl
 import torch
+import dgl.function as fn
 
 
 def collate(
@@ -39,3 +40,12 @@ def reduce(nodes: dgl.DGLGraph.nodes) -> Dict[str, torch.Tensor]:
     accumulated = torch.mean(nodes.mailbox['m'], 1)
 
     return {'h': accumulated}
+
+
+def message() -> Callable:
+    """Sends a message of node feature h.
+
+    Returns:
+        Callable: Callable function sends node feature h to m.
+    """
+    return fn.copy_src(src='h', out='m')
