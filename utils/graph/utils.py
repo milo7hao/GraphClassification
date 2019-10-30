@@ -1,5 +1,6 @@
+from typing import Dict, List, Tuple
+
 import dgl
-from typing import List, Tuple
 import torch
 
 
@@ -21,3 +22,20 @@ def collate(
     batched_graph = dgl.batch(graphs)
 
     return batched_graph, torch.tensor(labels)
+
+
+def reduce(nodes: dgl.DGLGraph.nodes) -> Dict[str, torch.Tensor]:
+
+    """Take an average over all neighbor node features h_u and use it
+        to overwrite the original node feature.
+
+    Args:
+        nodes (dgl.DGLGraph.nodes): Specified node to take an average
+            over all neighbor node features.
+
+    Returns:
+        torch.Tensor: Accumulated hidden feature (vector).
+    """
+    accumulated = torch.mean(nodes.mailbox['m'], 1)
+
+    return {'h': accumulated}
