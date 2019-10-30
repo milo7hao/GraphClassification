@@ -1,8 +1,8 @@
-from typing import Dict, List, Tuple, Callable
+from typing import Callable, Dict, List, Tuple
 
 import dgl
-import torch
 import dgl.function as fn
+import torch
 
 
 def collate(
