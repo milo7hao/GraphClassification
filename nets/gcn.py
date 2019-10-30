@@ -1,8 +1,9 @@
-import torch.nn as nn
-from nets.nodes import NodeApplyModule
 import dgl
 import torch
-from utils.graph.utils import reduce, message
+import torch.nn as nn
+
+from nets.nodes import NodeApplyModule
+from utils.graph.utils import message, reduce
 
 
 class GraphConvolutionalNetwork(nn.Module):
