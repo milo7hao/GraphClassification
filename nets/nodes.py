@@ -1,7 +1,8 @@
-import torch.nn as nn
-import dgl
 from typing import Dict
+
+import dgl
 import torch
+import torch.nn as nn
 
 
 class NodeApplyModule(nn.Module):
