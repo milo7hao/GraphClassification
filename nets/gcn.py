@@ -1,9 +1,13 @@
 import dgl
 import torch
 import torch.nn as nn
+import dgl.function as fn
 
 from nets.nodes import NodeApplyModule
-from utils.graph import message, reduce
+from utils.graph import reduce
+
+# Sends a message of node feature h.
+msg = fn.copy_src(src='h', out='m')
 
 
 class GraphConvolutionalNetwork(nn.Module):
@@ -41,7 +45,7 @@ class GraphConvolutionalNetwork(nn.Module):
         # Additionally, apply a function `reduce`, which takes an average
         # over all neighbor node features, to update the node features
         # after receive.
-        graph.update_all(message, reduce)
+        graph.update_all(msg, reduce)
 
         # Apply node func, i.e. update the node feature h_v by NodeApplyModule.
         graph.apply_nodes(func=self.apply_mod)
