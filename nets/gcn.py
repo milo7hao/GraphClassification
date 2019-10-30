@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 
 from nets.nodes import NodeApplyModule
-from utils.graph.utils import message, reduce
+from utils.graph import message, reduce
 
 
 class GraphConvolutionalNetwork(nn.Module):
